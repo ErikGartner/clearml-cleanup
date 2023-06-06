@@ -57,7 +57,7 @@ if args["run_as_service"]:
 print("Cleanup service started")
 
 # Setup AWS credentials
-for cred in credentials["aws_credentials"]:
+for cred in credentials["aws"]:
     task.setup_aws_upload(**cred)
 
 while True:

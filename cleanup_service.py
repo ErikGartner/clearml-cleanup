@@ -36,10 +36,13 @@ args = {
     "cleanup_period_in_days": 1.0,
     "run_as_service": True,
     "force_delete": False,
-    "aws_credentials": [],
 }
 args = task.connect(args)
 
+credentials = {
+    "aws": [],
+}
+credentials = task.connect_configuration(credentials, "credentials")
 
 # if we are running as a service, just enqueue ourselves into the services queue and let it run the optimization
 if args["run_as_service"] and task.running_locally():
@@ -54,7 +57,7 @@ if args["run_as_service"]:
 print("Cleanup service started")
 
 # Setup AWS credentials
-for cred in args["aws_credentials"]:
+for cred in credentials["aws_credentials"]:
     task.setup_aws_upload(**cred)
 
 while True:
